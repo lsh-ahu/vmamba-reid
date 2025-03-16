@@ -1,0 +1,76 @@
+MODEL:
+  PRETRAIN_CHOICE: 'imagenet'
+  METRIC_LOSS_TYPE: 'triplet'
+  IF_LABELSMOOTH: 'off'
+  IF_WITH_CENTER: 'no'
+  NO_MARGIN: True
+  DEVICE_ID: ('2')
+  TRANSFORMER_TYPE: 'vit_base_patch16_224_TransReID'
+  STRIDE_SIZE: [16, 16]
+
+
+  NUM_CLASSES: 1000
+  PRETRAIN_PATH: './pretrained/vssmtiny_dp01_ckpt_epoch_292.pth'
+  # DROP_PATH_RATE: 0.6
+  TYPE: vssm
+  NAME: 'vssm_tiny'
+  DROP_PATH_RATE: 0.2
+  VSSM:
+    EMBED_DIM: 96
+    IN_PLANES: 768
+    DEPTHS: [ 2, 2, 9, 2 ]
+    SSM_D_STATE: 16
+    SSM_DT_RANK: "auto"
+    SSM_RATIO: 2.0
+    MLP_RATIO: 0.0
+    DOWNSAMPLE: "v1"
+    PATCHEMBED: "v1"
+    # SSM_FORWARDTYPE: "v0" # if you want exactly the same
+
+INPUT:
+  SIZE_TRAIN: [256, 128]
+  SIZE_TEST: [256, 128]
+  PROB: 0.5 # random horizontal flip
+  RE_PROB: 0.5 # random erasing
+  PADDING: 10
+  PIXEL_MEAN: [0.5, 0.5, 0.5]
+  PIXEL_STD: [0.5, 0.5, 0.5]
+
+DATASETS:
+  NAMES: ('dukemtmc')
+  ROOT_DIR: ('./data')
+
+DATALOADER:
+  SAMPLER: 'softmax_triplet'
+  NUM_INSTANCE: 4
+  NUM_WORKERS: 8
+
+SOLVER:
+  OPTIMIZER_NAME: 'SGD'
+  MAX_EPOCHS: 120
+  BASE_LR: 0.008
+  # OPTIMIZER_NAME: 'AdamW'
+  # MAX_EPOCHS: 120
+  # BASE_LR: 0.00035
+  IMS_PER_BATCH: 64
+  WARMUP_METHOD: 'linear'
+  LARGE_FC_LR: False
+  CHECKPOINT_PERIOD: 120
+  LOG_PERIOD: 50
+  EVAL_PERIOD: 5
+  WEIGHT_DECAY:  1e-4
+  WEIGHT_DECAY_BIAS: 1e-4
+  BIAS_LR_FACTOR: 2
+
+TEST:
+  EVAL: True
+  IMS_PER_BATCH: 256
+  RE_RANKING: False
+  WEIGHT: ''
+  NECK_FEAT: 'before'
+  FEAT_NORM: 'yes'
+
+# OUTPUT_DIR: './logs/duke_vmamba_base'
+OUTPUT_DIR: './logs/duke_vmamba_tiny'
+
+# python train_vmamba.py --config_file configs/DukeMTMC/vmamba_tiny.yml
