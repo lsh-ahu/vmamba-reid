@@ -2,9 +2,9 @@
 
 The repository is the implementation of the 'Person/Vehicle Re-Identification' subsection in our [paper](https://arxiv.org/pdf/2404.09516).
 
-### Training Code
+### Training the Code
 
-1. First, build the conda environment based on [VMamba](https://github.com/MzeroMiko/VMamba) or [ViM](https://github.com/hustvl/Vim).
+1. First, please build the conda environment based on [VMamba](https://github.com/MzeroMiko/VMamba) or [ViM](https://github.com/hustvl/Vim).
 2. Prepare the `.pth` modal file in this `./pretrained` path.
 3. Use `ln -s 'path_for_dataset' dataset_name` to build soft link for each dataset in the `./data` directory.
 2. After that, running code like,
