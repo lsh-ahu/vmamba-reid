@@ -14,7 +14,7 @@ python train_vmamba.py --config_file configs/DukeMTMC/vmamba_base.yml
 5. Refer to the configuration in `configs/DukeMTMC/vmamba_base.yml` to conduct a new experiment.
 
 ## Performance
-![reid_performance](figs\reid_performance_table.png "reid_performance")
+![reid_performance](figs/reid_performance_table.png "reid_performance")
 
 ## Acknowledgements
 
