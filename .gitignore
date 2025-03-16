@@ -221,5 +221,3 @@ ENV/
 .ropeproject
 
 logs/
-pretrained/
-data/
